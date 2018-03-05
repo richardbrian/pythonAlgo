@@ -32,13 +32,21 @@ def getAllNumbersInArray(number):
    x3=list(map(int, x2))
    return x3
 
-def generatorFunc():
-    for i in range(99,10,-1):
-        x1=str(i)
-        if '0' in x1:
-            continue
-        else:
-            yield(i)
+def generatorFunc(incr=True):
+    if incr:
+       for i in range(99,10,-1):
+           x1=str(i)
+           if '0' in x1:
+               continue
+           else:
+               yield(i)
+    else:
+        for i in range(11, 100, 1):
+            x1 = str(i)
+            if '0' in x1:
+                continue
+            else:
+                yield (i)
 
 def programForLargestPN(number):
     x3=getAllNumbersInArray(number)
@@ -46,12 +54,26 @@ def programForLargestPN(number):
     for i in y1:
        numberToCheck= x3[4]*10000+x3[3]*1000+ x3[2]*100+ i
        if isPrimerNumber(numberToCheck):
-           print("Number %s is the largest prime number", numberToCheck)
+           print("Number %s is the largest prime number=", numberToCheck)
+           return
+
+def programForSmallestPN(number):
+    # Number given can be a prime number.
+    # See if can manipulate two MSB to generate smallest prime number
+    x3=getAllNumbersInArray(number)
+    y1=generatorFunc(False)
+    for i in y1:
+       z1 = list(str(i))
+       z2 = list(map(int, z1))
+       numberToCheck= z2[1]*10000+x3[3]*1000+ x3[2]*100+ x3[1]*10 +z2[0]
+       if isPrimerNumber(numberToCheck):
+           print("Number %s is the Smallest prime number=", numberToCheck)
            return
 
 def main():
     number=int(input("Enter 5 digit number="))
     programForLargestPN(number)
+    programForSmallestPN(number)
 
 if __name__ == '__main__':
     main()
