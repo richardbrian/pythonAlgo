@@ -26,7 +26,7 @@ def isPrimerNumber(number):
     return True
 
 def main():
-    numberN = 99999
+    numberN = int(input("Enter any number="))
     len1=len(str(numberN))
     i=len1-1
     j=0
