@@ -1,5 +1,8 @@
-# Write a program for:
-# Given 5 digit number  , modify any to digits to return highest and lowest prime number
+def replaceNo(number, position, replaceNo):
+    lsb = number%pow(10,position)
+    msb= int(number/pow(10,position+1))
+    newNo = msb*pow(10,position+1) + replaceNo * pow(10,position) + lsb
+    return newNo
 
 def isPrimerNumber(number):
     if number == 0:
@@ -22,58 +25,46 @@ def isPrimerNumber(number):
         w = 6 - w
     return True
 
-def getAllNumbersInArray(number):
-   #pythonic
-   #convert first into string
-   x1=str(number)
-   #convert into string array
-   x2=list(x1)
-   #convert back to in array
-   x3=list(map(int, x2))
-   return x3
-
-def generatorFunc(incr=True):
-    if incr:
-       for i in range(99,10,-1):
-           x1=str(i)
-           if '0' in x1:
-               continue
-           else:
-               yield(i)
-    else:
-        for i in range(11, 100, 1):
-            x1 = str(i)
-            if '0' in x1:
-                continue
-            else:
-                yield (i)
-
-def programForLargestPN(number):
-    x3=getAllNumbersInArray(number)
-    y1=generatorFunc()
-    for i in y1:
-       numberToCheck= x3[4]*10000+x3[3]*1000+ x3[2]*100+ i
-       if isPrimerNumber(numberToCheck):
-           print("Number %s is the largest prime number=", numberToCheck)
-           return
-
-def programForSmallestPN(number):
-    # Number given can be a prime number.
-    # See if can manipulate two MSB to generate smallest prime number
-    x3=getAllNumbersInArray(number)
-    y1=generatorFunc(False)
-    for i in y1:
-       z1 = list(str(i))
-       z2 = list(map(int, z1))
-       numberToCheck= z2[1]*10000+x3[3]*1000+ x3[2]*100+ x3[1]*10 +z2[0]
-       if isPrimerNumber(numberToCheck):
-           print("Number %s is the Smallest prime number=", numberToCheck)
-           return
-
 def main():
-    number=int(input("Enter 5 digit number="))
-    programForLargestPN(number)
-    programForSmallestPN(number)
+    numberN = 99999
+    len1=len(str(numberN))
+    i=len1-1
+    j=0
+    k=0
+    #positionChange A loop
+    lowestPrimeNo = None
+    steps=0
+    while i>=1:
+        for aNo in range(1,10): #Change no loop
+            #temp = getNumberList(numberN)
+            temp =  replaceNo(numberN,i,aNo)
+            if lowestPrimeNo != None and lowestPrimeNo < temp:
+                continue
+            j=i-1
+            #Position Change B loop
+            while j>=0:
+                temp1 = temp
+                for bNo in range(1,10):
+                    temp1=replaceNo(temp,j,bNo)
+                    if lowestPrimeNo != None and lowestPrimeNo < temp1:
+                        continue
+                    if lowestPrimeNo == None:
+                        if isPrimerNumber(temp1):
+                            lowestPrimeNo = temp1
+                    if isPrimerNumber(temp1):
+                        if not lowestPrimeNo:
+                           lowestPrimeNo = temp1
+                        elif lowestPrimeNo > temp1:
+                            lowestPrimeNo = temp1
+                    steps += 1
+                    #print(temp1)
+                j -= 1
+        i -= 1
+    print("Total steps= %s" % steps)
+    print("Lowest prime number=%s" % lowestPrimeNo)
+#Number change A
 
-if __name__ == '__main__':
-    main()
+#position change B
+#Number change B
+
+main()
