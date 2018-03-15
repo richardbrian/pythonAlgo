@@ -52,5 +52,5 @@ def getAllFdSolutions(faultDomainCombinations):
 # Each fault domain depending on policy we may support 'n' numbers minimum nodes.
 # UFT=1 LFT=1 RAID1   Needs 3 fault domains with 3 nodes each. (3,3,3)
 # UFT1 LFT2 RAID6  Needs  3 fault domains with minimum of 6 nodes each. {6,6,6)
-minimumFdCombination = (6, 6, 6)
+minimumFdCombination = (3, 3, 3)
 getAllFdSolutions(minimumFdCombination)
