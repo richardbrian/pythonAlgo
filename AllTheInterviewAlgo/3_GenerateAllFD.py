@@ -1,9 +1,6 @@
 from itertools import permutations
 
 def singleFD(fdHosts):
-    pft=1
-    sft=1
-    policyType = 'P'
     # Generate all  possible numbers to create the sum
     result = []
     for i in range(1,fdHosts+1):
@@ -52,5 +49,5 @@ def getAllFdSolutions(faultDomainCombinations):
             print(mergedL)
     print("TotalSolutions", len(finalAllSolutions))
 
-minimumFdCombination = (6, 6, 6)
+minimumFdCombination = (7, 7, 7)
 getAllFdSolutions(minimumFdCombination)
