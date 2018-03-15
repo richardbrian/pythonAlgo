@@ -31,24 +31,26 @@ def mergeLists(inputList):
         mergedL += eachList
     return mergedL
 
-minimumFdCombination= (6,6,6)
-allSolutions = []
-allSolutions.extend(singleFD(minimumFdCombination[0]))
-allSolutions.extend(singleFD(minimumFdCombination[1]))
-allSolutions.extend(singleFD(minimumFdCombination[2]))
-megaPermute = permutations(allSolutions,3)
-finalSum = sum(minimumFdCombination)
+def getAllFdSolutions(faultDomainCombinations):
 
-dedupeDict = {}
-i =1
-finalAllSolutions = []
-for eachSolution in megaPermute:
-    mergedL = mergeLists(eachSolution)
-    if finalSum == sum(mergedL):
-        if str(sorted(mergedL)) in dedupeDict:
-            continue
-        dedupeDict[str(sorted(mergedL))] = 0
-        finalAllSolutions.extend(mergedL)
-        print(mergedL)
-        i += 1
-print("Total solutions=", i)
+    allSolutions = []
+    for eachNumber in faultDomainCombinations:
+       allSolutions.extend(singleFD(eachNumber))
+
+    megaPermute = permutations(allSolutions, len(faultDomainCombinations))
+    finalSum = sum(minimumFdCombination)
+
+    dedupeDict = {}
+    finalAllSolutions = []
+    for eachSolution in megaPermute:
+        mergedL = mergeLists(eachSolution)
+        if finalSum == sum(mergedL):
+            if str(sorted(mergedL)) in dedupeDict:
+                continue
+            dedupeDict[str(sorted(mergedL))] = 0
+            finalAllSolutions.append(mergedL)
+            print(mergedL)
+    print("TotalSolutions", len(finalAllSolutions))
+
+minimumFdCombination = (6, 6, 6)
+getAllFdSolutions(minimumFdCombination)
