@@ -1,4 +1,5 @@
 from itertools import permutations
+from timeStamp import timeit
 
 def singleFD(fdHosts):
     # Generate all  possible numbers to create the sum
@@ -28,6 +29,7 @@ def mergeLists(inputList):
         mergedL += eachList
     return mergedL
 
+@timeit
 def getAllFdSolutions(faultDomainCombinations):
 
     allSolutions = []
@@ -37,14 +39,14 @@ def getAllFdSolutions(faultDomainCombinations):
     megaPermute = permutations(allSolutions, len(faultDomainCombinations))
     finalSum = sum(minimumFdCombination)
 
-    dedupeDict = {}
+    uniqueSolutions = {}
     finalAllSolutions = []
     for eachSolution in megaPermute:
         mergedL = mergeLists(eachSolution)
         if finalSum == sum(mergedL):
-            if str(sorted(mergedL)) in dedupeDict:
+            if str(sorted(mergedL)) in uniqueSolutions:
                 continue
-            dedupeDict[str(sorted(mergedL))] = 0
+            uniqueSolutions[str(sorted(mergedL))] = 0
             finalAllSolutions.append(mergedL)
             print(mergedL)
     print("TotalSolutions", len(finalAllSolutions))
@@ -52,5 +54,7 @@ def getAllFdSolutions(faultDomainCombinations):
 # Each fault domain depending on policy we may support 'n' numbers minimum nodes.
 # UFT=1 LFT=1 RAID1   Needs 3 fault domains with 3 nodes each. (3,3,3)
 # UFT1 LFT2 RAID6  Needs  3 fault domains with minimum of 6 nodes each. (6,6,6)
-minimumFdCombination = (6, 6, 6)
+minimumFdCombination = (3, 3, 3,3,3)
+
+
 getAllFdSolutions(minimumFdCombination)
