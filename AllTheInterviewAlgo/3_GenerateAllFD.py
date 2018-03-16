@@ -43,10 +43,11 @@ def getAllFdSolutions(faultDomainCombinations):
     finalAllSolutions = []
     for eachSolution in megaPermute:
         mergedL = mergeLists(eachSolution)
+        sortMergedL = str(sorted(mergedL))
         if finalSum == sum(mergedL):
-            if str(sorted(mergedL)) in uniqueSolutions:
+            if sortMergedL in uniqueSolutions:
                 continue
-            uniqueSolutions[str(sorted(mergedL))] = 0
+            uniqueSolutions[sortMergedL] = 0
             finalAllSolutions.append(mergedL)
             print(mergedL)
     print("TotalSolutions", len(finalAllSolutions))
@@ -54,7 +55,7 @@ def getAllFdSolutions(faultDomainCombinations):
 # Each fault domain depending on policy we may support 'n' numbers minimum nodes.
 # UFT=1 LFT=1 RAID1   Needs 3 fault domains with 3 nodes each. (3,3,3)
 # UFT1 LFT2 RAID6  Needs  3 fault domains with minimum of 6 nodes each. (6,6,6)
-minimumFdCombination = (3, 3, 3,3,3)
+minimumFdCombination = (6, 6, 6)
 
 
 getAllFdSolutions(minimumFdCombination)
