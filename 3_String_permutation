@@ -1,0 +1,20 @@
+def string_permutation(string_name, length_of_string):
+    if length_of_string == 0:
+        print("{0}".format(string_name))
+        return
+    for element in range(0, length_of_string-1):
+        string_name = swap(string_name, length_of_string - 1 , element)
+        print("{0}".format(string_name))
+        string_name = swap(string_name, element, length_of_string -1)
+    string_permutation(string_name, length_of_string - 1)
+
+def swap(string_name, pos1, pos2):
+    temp = string_name[pos1]
+    string_name[pos1]= string_name[pos2]
+    string_name[pos2] = temp
+    return string_name
+
+if __name__ == '__main__':
+    test_string='abc'
+    test_string_array = list(test_string)
+    string_permutation(test_string_array, len(test_string_array))
